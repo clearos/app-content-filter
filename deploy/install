@@ -1,0 +1,10 @@
+#!/bin/sh
+
+# Tweak maxlogitemlength - see http://tracker.clearfoundation.com/view.php?id=424
+#-----------------------
+
+CHECK=`grep ^maxlogitemlength /etc/dansguardian-av/dansguardian.conf`
+if [ -z "$CHECK" ]; then
+    logger -p local6.notice -t installer "app-content-filter-core - updating logging policy for long URLs"
+    sed -i -e 's/#[[:space:]]*maxlogitemlength.*/maxlogitemlength = 400/' /etc/dansguardian-av/dansguardian.conf
+fi
