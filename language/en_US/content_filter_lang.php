@@ -177,3 +177,4 @@ $lang['content_filter_pics_level'] = 'PICS Level';
 $lang['content_filter_reporting_level'] = 'Reporting Level';
 $lang['content_filter_short_report'] = 'Short Report';
 $lang['content_filter_stealth_mode'] = 'Stealth Mode';
+$lang['content_filter_return_to_summary'] = 'Return to Summary';

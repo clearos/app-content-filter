@@ -55,5 +55,6 @@ $items['banned_ips']['anchors'] = array($anchor);
 
 echo action_table(
     lang('content_filter_global_settings'),
+    array(),
     $items
 );

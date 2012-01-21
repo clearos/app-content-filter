@@ -69,12 +69,6 @@ class Content_Filter extends ClearOS_Controller
             'content_filter/policy',
         );
 
-        // FIXME
-        // general settings
-        // banned IP list
-        // exempt IP list
-        // groups
-
         $this->page->view_forms($views, lang('content_filter_app_name'));
     }
 }

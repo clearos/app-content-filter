@@ -92,7 +92,7 @@ foreach ($groups as $id => $details) {
 $options =  array('sort' => FALSE);
 
 echo summary_table(
-    lang('content_filter_group_policies'),
+    lang('groups_app_policies'),
     $anchors,
     $headers,
     $items,
