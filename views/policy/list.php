@@ -33,8 +33,9 @@
 // Load dependencies
 ///////////////////////////////////////////////////////////////////////////////
 
-$this->lang->load('content_filter');
+$this->lang->load('base');
 $this->lang->load('groups');
+$this->lang->load('content_filter');
 
 ///////////////////////////////////////////////////////////////////////////////
 // Headers
@@ -58,14 +59,13 @@ $anchors = array(anchor_add('/app/content_filter/policy/add'));
 foreach ($groups as $id => $details) {
     if ($id === 1) {
         $detail_buttons = button_set(
-            array(anchor_custom('/app/content_filter/policy/configure/' . $id, 'Configure Policy'))
+            array(anchor_custom('/app/content_filter/policy/configure/' . $id, lang('base_configure_policy')))
         );
         $group = '-';
     } else {
         $detail_buttons = button_set(
-            // FIXME: translate (base_configure_policy)
             array(
-                anchor_custom('/app/content_filter/policy/configure/' . $id, 'Configure Policy'),
+                anchor_custom('/app/content_filter/policy/configure/' . $id, lang('base_configure_policy')),
                 anchor_edit('/app/content_filter/policy/edit/' . $id),
                 anchor_delete('/app/content_filter/policy/delete/' . $id)
             )

@@ -32,13 +32,12 @@ $app['controllers']['policy']['title'] = lang('content_filter_policy');
 // Packaging
 /////////////////////////////////////////////////////////////////////////////
 
-// FIXME: remove 6.1.0.xxx version requirement
 $app['requires'] = array(
     'app-antiphishing',
     'app-antivirus',
     'app-network',
     'app-groups',
-    'app-web-proxy >= 6.1.0.beta2.1',
+    'app-web-proxy'
 );
 
 $app['core_requires'] = array(
