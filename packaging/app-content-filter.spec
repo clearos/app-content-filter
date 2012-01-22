@@ -15,7 +15,7 @@ Requires: app-antiphishing
 Requires: app-antivirus
 Requires: app-network
 Requires: app-groups
-Requires: app-web-proxy >= 6.1.0.beta2.1
+Requires: app-web-proxy
 
 %description
 The Content Filter app allows an administrator to enforce browsing policy.  Policy can be enforced across all users or, group definitions can be created, allowing an admin to categorise users into groups - to be filtered uniquely based on the group policy/definition.
