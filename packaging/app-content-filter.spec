@@ -28,8 +28,8 @@ License: LGPLv3
 Requires: app-base-core
 Requires: app-antiphishing-core
 Requires: app-antivirus-core
-Requires: app-base-core >= 6.1.0-beta2.1
-Requires: app-firewall-core >= 6.1.0.beta2.3
+Requires: app-base-core
+Requires: app-firewall-core
 Requires: app-groups-core
 Requires: app-network-core
 Requires: app-web-proxy-core

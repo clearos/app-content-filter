@@ -43,8 +43,8 @@ $app['requires'] = array(
 $app['core_requires'] = array(
     'app-antiphishing-core',
     'app-antivirus-core',
-    'app-base-core >= 6.1.0-beta2.1',
-    'app-firewall-core >= 6.1.0.beta2.3',
+    'app-base-core',
+    'app-firewall-core',
     'app-groups-core',
     'app-network-core',
     'app-web-proxy-core',
