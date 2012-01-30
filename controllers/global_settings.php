@@ -122,7 +122,6 @@ class Global_Settings extends ClearOS_Controller
 
         try {
             $this->dansguardian->delete_policy($policy);
-            $this->dansguardian->reset(TRUE);
 
             $this->page->set_status_deleted();
             redirect('/content_filter');
@@ -188,9 +187,9 @@ class Global_Settings extends ClearOS_Controller
                         $this->input->post('group')
                     );
                     $this->page->set_status_added();
+                    $this->dansguardian->reset(TRUE);
                 }
 
-                $this->dansguardian->reset(TRUE);
                 redirect('/content_filter/policy');
             } catch (Exception $e) {
                 $this->page->view_exception($e);

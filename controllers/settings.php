@@ -55,6 +55,8 @@ class Settings extends ClearOS_Controller
 
     function index()
     {
+        // TODO: this is not active at the moment... is it used?
+
         // Load dependencies
         //------------------
 
@@ -66,27 +68,6 @@ class Settings extends ClearOS_Controller
          
         $this->form_validation->set_policy('reverse', 'content_filter/DansGuardian', 'validate_reverse_lookups');
         $form_ok = $this->form_validation->run();
-
-        /*
-        // Handle form submit
-        //-------------------
-
-        if (($this->input->post('submit') && $form_ok)) {
-            try {
-                $this->pptpd->set_remote_ip($this->input->post('remote_ip'));
-                $this->pptpd->set_local_ip($this->input->post('local_ip'));
-                $this->pptpd->set_domain($this->input->post('domain'));
-                $this->pptpd->set_wins_server($this->input->post('wins'));
-                $this->pptpd->set_dns_server($this->input->post('dns'));
-                $this->pptpd->reset(TRUE);
-
-                $this->page->set_status_updated();
-            } catch (Exception $e) {
-                $this->page->view_exception($e);
-                return;
-            }
-        }
-        */
 
         // Load view data
         //---------------

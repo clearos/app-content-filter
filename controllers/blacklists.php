@@ -83,7 +83,6 @@ class Blacklists extends ClearOS_Controller
                     array_keys($this->input->post('blacklist')),
                     $policy
                 );
-                $this->dansguardian->reset(TRUE);
 
                 $this->page->set_status_updated();
                 redirect('/content_filter/policy/edit/' . $policy);
