@@ -70,7 +70,7 @@ foreach ($groups as $id => $details) {
                 anchor_delete('/app/content_filter/policy/delete/' . $id)
             )
         );
-// FIXME
+
         $group = $details['systemgroup'];
     }
 
