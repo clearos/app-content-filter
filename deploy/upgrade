@@ -1,6 +1,2 @@
 #!/bin/sh
 
-# TODO: required for beta only - app-antivirus handles this
-/sbin/chkconfig --add clamav
-/sbin/chkconfig clamav on
-/sbin/service clamav start >/dev/null 2>&1
