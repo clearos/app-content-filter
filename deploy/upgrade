@@ -1,2 +1,5 @@
 #!/bin/sh
 
+/usr/clearos/apps/content_filter/deploy/syncaction
+
+exit 0
