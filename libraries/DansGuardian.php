@@ -1498,6 +1498,10 @@ class DansGuardian extends Daemon
     {
         clearos_profile(__METHOD__, __LINE__);
 
+        // Bail if there's no change, we don't want to touch the config if it's not necessary
+        if ($this->get_access_denied_url() === $url)
+            return;
+
         $this->_set_configuration_value('accessdeniedaddress', $url);
     }
 
