@@ -178,3 +178,5 @@ $lang['content_filter_reporting_level'] = 'Reporting Level';
 $lang['content_filter_short_report'] = 'Short Report';
 $lang['content_filter_stealth_mode'] = 'Stealth Mode';
 $lang['content_filter_return_to_summary'] = 'Return to Summary';
+$lang['content_filter_free_blacklists_unavailable_for_commercial_use'] = 'Sorry, good quality content filter blacklists are not available for free for commercial use.';
+$lang['content_filter_blacklists_available_in_marketplace'] = 'However, blacklists with regular updates are available in Marketplace.';

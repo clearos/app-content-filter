@@ -75,7 +75,17 @@ foreach ($all_blacklists as $blacklist) {
 ///////////////////////////////////////////////////////////////////////////////
 
 if (count($all_blacklists) == 0) {
-    echo infobox_warning('', 'Blacklists');
+    $message = lang('content_filter_free_blacklists_unavailable_for_commercial_use');
+    $anchors = array(anchor_cancel("/app/content_filter/policy/configure/$policy"));
+
+    if (clearos_app_installed('marketplace')) {
+        $message .= ' ' . lang('content_filter_blacklists_available_in_marketplace');
+        array_unshift($anchors, anchor_custom('/app/marketplace/view/content_filter_updates', 'ClearCenter Content Filter Updates'));
+    }
+
+    // TODO: <br><div> hacking below - clean it up
+    echo infobox_highlight(lang('content_filter_blacklists'), $message . '<br><br><div align="center">' . button_set($anchors) . '</div>');
+
     return;
 }
 
