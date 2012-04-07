@@ -8,3 +8,8 @@ if [ -z "$CHECK" ]; then
     logger -p local6.notice -t installer "app-content-filter-core - updating logging policy for long URLs"
     sed -i -e 's/#[[:space:]]*maxlogitemlength.*/maxlogitemlength = 400/' /etc/dansguardian-av/dansguardian.conf
 fi
+
+# Reload clearsyncd
+#------------------
+
+/sbin/service clearsyncd condrestart >/dev/null 2>&1
