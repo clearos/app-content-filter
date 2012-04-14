@@ -1,7 +1,7 @@
 
 Name: app-content-filter
 Epoch: 1
-Version: 1.0.10
+Version: 1.1.0
 Release: 1%{dist}
 Summary: Content Filter
 License: GPLv3
@@ -20,7 +20,7 @@ Requires: app-web-proxy
 The Content Filter app allows an administrator to enforce browsing policy.  Policy can be enforced across all users or, group definitions can be created, allowing an admin to categorise users into groups - to be filtered uniquely based on the group policy/definition.
 
 %package core
-Summary: Content Filter - APIs and install
+Summary: Content Filter - Core
 License: LGPLv3
 Group: ClearOS/Libraries
 Requires: app-base-core
