@@ -17,7 +17,7 @@ Requires: app-groups
 Requires: app-web-proxy
 
 %description
-The Content Filter app allows an administrator to enforce browsing policy.  Policy can be enforced across all users or, group definitions can be created, allowing an admin to categorise users into groups - to be filtered uniquely based on the group policy/definition.
+The Content Filter app allows an administrator to enforce Internet browsing policies.  Policies can be enforced across all users or user-specified groups.
 
 %package core
 Summary: Content Filter - Core
@@ -35,7 +35,7 @@ Requires: csplugin-filewatch
 Requires: dansguardian-av >= 2.10.1.1-5
 
 %description core
-The Content Filter app allows an administrator to enforce browsing policy.  Policy can be enforced across all users or, group definitions can be created, allowing an admin to categorise users into groups - to be filtered uniquely based on the group policy/definition.
+The Content Filter app allows an administrator to enforce Internet browsing policies.  Policies can be enforced across all users or user-specified groups.
 
 This package provides the core API and libraries.
 
