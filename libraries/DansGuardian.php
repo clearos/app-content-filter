@@ -1220,11 +1220,11 @@ class DansGuardian extends Daemon
         clearos_profile(__METHOD__, __LINE__);
 
         return array(
-            '50' => lang('content_filter_very_aggressive'),
-            '100' => lang('content_filter_aggressive'),
-            '150' => lang('content_filter_normal'),
-            '200' => lang('content_filter_lax'),
-            '400' => lang('content_filter_very_lax'),
+            '100' => lang('content_filter_very_aggressive'),
+            '150' => lang('content_filter_aggressive'),
+            '200' => lang('content_filter_normal'),
+            '250' => lang('content_filter_lax'),
+            '350' => lang('content_filter_very_lax'),
             '99999' => lang('base_disabled'),
         );
     }
