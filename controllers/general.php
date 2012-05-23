@@ -78,6 +78,7 @@ class General extends ClearOS_Controller
         // Load libraries
         //---------------
 
+        $this->lang->load('base');
         $this->lang->load('content_filter');
         $this->load->library('content_filter/DansGuardian');
 
@@ -135,6 +136,6 @@ class General extends ClearOS_Controller
         // Load views
         //-----------
 
-        $this->page->view_form('content_filter/policy/general', $data, lang('content_filter_general_settings'));
+        $this->page->view_form('content_filter/policy/general', $data, lang('base_settings'));
     }
 }
