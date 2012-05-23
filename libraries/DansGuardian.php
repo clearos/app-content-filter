@@ -620,7 +620,7 @@ class DansGuardian extends Daemon
         $lines = $groups->get_contents_as_array();
 
         $new_list = '';
-        $count = 0;
+        $count = 1;
 
         foreach ($lines as $line) {
             if (preg_match('/^#/', $line))
@@ -634,7 +634,9 @@ class DansGuardian extends Daemon
 
         $groups->delete();
         $groups->create('root', 'root', '0644');
-        $groups->add_lines($new_list);
+
+        if (count($this->get_policies()) > 1)
+            $groups->add_lines($new_list);
 
         // Fix gaps in the sequence IDs
         //-----------------------------
@@ -1001,7 +1003,7 @@ class DansGuardian extends Daemon
 
         foreach ($ids as $id) {
             $policies[$id] = $this->get_policy_configuration($id);
-            $policies[$id]['systemgroup'] = $system_groups[$id];
+            $policies[$id]['systemgroup'] = $system_groups[$id-1];
         }
 
         return $policies;
@@ -1041,9 +1043,9 @@ class DansGuardian extends Daemon
 
             $value = trim($value);
 
-            if (preg_match('/off/i', $value))
+            if (preg_match('/^\s*off\s*$/i', $value))
                 $value = FALSE;
-            else if (preg_match('/on/i', $value))
+            else if (preg_match('/^\s*on\s*$/i', $value))
                 $value = TRUE;
 
             $policy[trim($key)] = trim($value);
@@ -1071,7 +1073,7 @@ class DansGuardian extends Daemon
         $file = new File(self::FILE_SYSTEM_GROUPS);
 
         $lines = $file->get_contents_as_array();
-        $count = 1;
+        $count = 2;
 
         foreach ($lines as $line) {
             if (preg_match('/^\s*#/', $line))
@@ -1744,11 +1746,10 @@ class DansGuardian extends Daemon
 
         $this->_set_configuration_value('groupname', $name, $policy);
         
-// pete
         $file = new File(self::FILE_SYSTEM_GROUPS);
 
         $lines = $file->get_contents_as_array();
-        $count = 1;
+        $count = 2;
 
         foreach ($lines as $line) {
             if (preg_match('/^\s*#/', $line))
@@ -2311,7 +2312,7 @@ class DansGuardian extends Daemon
 
         // TODO: tighten this up
         if (!(preg_match("/^([0-9\.\-]*)$/", $ip)))
-            return lang('content_filter_ip_invalid');
+            return lang('network_ip_invalid');
     }
 
     /**
