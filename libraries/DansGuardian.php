@@ -386,6 +386,11 @@ class DansGuardian extends Daemon
         $file = new File(self::FILE_SYSTEM_GROUPS);
         $file->add_lines("$group\n");
 
+        // Run sequencing to make sure filtergroups is set
+        //------------------------------------------------
+
+        $this->_sequence_policies();
+
         return $id;
     }
 
@@ -620,7 +625,7 @@ class DansGuardian extends Daemon
         $lines = $groups->get_contents_as_array();
 
         $new_list = '';
-        $count = 1;
+        $count = 0;
 
         foreach ($lines as $line) {
             if (preg_match('/^#/', $line))
@@ -634,9 +639,7 @@ class DansGuardian extends Daemon
 
         $groups->delete();
         $groups->create('root', 'root', '0644');
-
-        if (count($this->get_policies()) > 1)
-            $groups->add_lines($new_list);
+        $groups->add_lines($new_list);
 
         // Fix gaps in the sequence IDs
         //-----------------------------
@@ -1003,7 +1006,7 @@ class DansGuardian extends Daemon
 
         foreach ($ids as $id) {
             $policies[$id] = $this->get_policy_configuration($id);
-            $policies[$id]['systemgroup'] = $system_groups[$id-1];
+            $policies[$id]['systemgroup'] = $system_groups[$id];
         }
 
         return $policies;
@@ -1073,7 +1076,7 @@ class DansGuardian extends Daemon
         $file = new File(self::FILE_SYSTEM_GROUPS);
 
         $lines = $file->get_contents_as_array();
-        $count = 2;
+        $count = 1;
 
         foreach ($lines as $line) {
             if (preg_match('/^\s*#/', $line))
@@ -1749,7 +1752,7 @@ class DansGuardian extends Daemon
         $file = new File(self::FILE_SYSTEM_GROUPS);
 
         $lines = $file->get_contents_as_array();
-        $count = 2;
+        $count = 1;
 
         foreach ($lines as $line) {
             if (preg_match('/^\s*#/', $line))
@@ -2606,6 +2609,35 @@ class DansGuardian extends Daemon
         $file = new File(self::FILE_CONFIG, TRUE);
 
         $file->replace_lines('/^filtergroups\s*=.*$/', sprintf("filtergroups = %d\n", count($ids)));
+
+        // Clean up system groups
+        //-----------------------
+
+        $file = new File(self::FILE_SYSTEM_GROUPS);
+
+        $lines = $file->get_contents_as_array();
+        $cleaned = "clearos_any_user\n";
+        $count = 1;
+
+        foreach ($lines as $line) {
+            if (preg_match('/^#/', $line))
+                continue;
+
+            if (preg_match('/^clearos_any_user/', $line))
+                continue;
+
+            // Bail when we have reached the number of filter groups.
+            // This prevents weird behavior when admins edit filtergroupslist 
+            if ($count == count($ids))
+                break;
+
+            $cleaned .= "$line\n";
+            $count++;
+        }
+
+        $file->delete();
+        $file->create('root', 'root', '0644');
+        $file->add_lines($cleaned);
     }
 
     /**

@@ -9,6 +9,12 @@ if [ -z "$CHECK" ]; then
     sed -i -e 's/#[[:space:]]*maxlogitemlength.*/maxlogitemlength = 400/' /etc/dansguardian-av/dansguardian.conf
 fi
 
+# Set default filtergroupslist
+#-----------------------------
+
+logger -p local6.notice -t installer "app-content-filter-core - setting filter groups list"
+echo "clearos_any_user" > /etc/dansguardian-av/lists/filtergroupslist
+
 # Reload clearsyncd
 #------------------
 

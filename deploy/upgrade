@@ -1,5 +1,18 @@
 #!/bin/sh
 
+
+# Set default filtergroupslist
+#-----------------------------
+
+CHECK=`grep "^filtergroups[[:space:]]*=[[:space:]]*1[[:space:]]*$" /etc/dansguardian-av/dansguardian.conf`
+if [ -n "$CHECK" ]; then
+    logger -p local6.notice -t installer "app-content-filter-core - updating filter groups list"
+    echo "clearos_any_user" > /etc/dansguardian-av/lists/filtergroupslist
+fi
+
+# Run sync action
+#----------------
+
 /usr/clearos/apps/content_filter/deploy/syncaction
 
 exit 0
