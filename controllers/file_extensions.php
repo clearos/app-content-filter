@@ -85,7 +85,7 @@ class File_Extensions extends ClearOS_Controller
                 );
 
                 $this->page->set_status_updated();
-                redirect('/content_filter/policy/edit/' . $policy);
+                redirect('/content_filter/policy/configure/' . $policy);
             } catch (Exception $e) {
                 $this->page->view_exception($e);
                 return;
