@@ -2045,7 +2045,7 @@ class DansGuardian extends Daemon
     {
         clearos_profile(__METHOD__, __LINE__);
 
-        if (! is_array($extensions))
+        if (!empty($extensions) && !is_array($extensions))
             return lang('content_filter_file_extensions_invalid');
 
         $valid_extensions = $this->get_possible_file_extensions();
@@ -2137,7 +2137,7 @@ class DansGuardian extends Daemon
     {
         clearos_profile(__METHOD__, __LINE__);
 
-        if (! is_array($phrase_lists))
+        if (!empty($phrase_lists) && !is_array($phrase_lists))
             return lang('content_filter_phrase_list_invalid');
 
         $valid_lists = $this->get_possible_phrase_lists();
