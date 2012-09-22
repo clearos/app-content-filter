@@ -68,4 +68,24 @@ class Server extends Daemon
     {
         parent::__construct('dansguardian-av', 'content_filter');
     }
+
+    /**
+     * Daemon start.
+     *
+     * @return view
+     */
+
+    function start()
+    {
+        $this->load->library('web_proxy/Squid');
+
+        try {
+            $this->squid->set_running_state(TRUE);
+            $this->squid->set_boot_state(TRUE);
+        } catch (Exception $e) {
+            //
+        }
+
+        parent::start();
+    }
 }
