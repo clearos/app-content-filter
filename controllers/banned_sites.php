@@ -79,7 +79,7 @@ class Banned_Sites extends ClearOS_Controller
         // Set validation rules
         //---------------------
 
-        $this->form_validation->set_policy('site', 'content_filter/DansGuardian', 'validate_site');
+        $this->form_validation->set_policy('site', 'content_filter/DansGuardian', 'validate_site_and_url');
         $form_ok = $this->form_validation->run();
 
         // Handle form submit
@@ -156,7 +156,7 @@ class Banned_Sites extends ClearOS_Controller
     {
         $confirm_uri = '/app/content_filter/banned_sites/destroy/' . $policy . '/' . $site;
         $cancel_uri = '/app/content_filter/banned_sites/index/' . $policy;
-        $items = array($site);
+        $items = array(base64_decode(strtr($site, '-_.', '+/=')));
 
         $this->page->view_confirm_delete($confirm_uri, $cancel_uri, $items);
     }
@@ -181,7 +181,7 @@ class Banned_Sites extends ClearOS_Controller
         //--------------
 
         try {
-            $this->dansguardian->delete_banned_site_and_url($site, $policy);
+            $this->dansguardian->delete_banned_site_and_url(base64_decode(strtr($site, '-_.', '+/=')), $policy);
 
             $this->page->set_status_deleted();
             redirect('/content_filter/banned_sites/edit/' . $policy);

@@ -2268,6 +2268,22 @@ class DansGuardian extends Daemon
     }
 
     /**
+     * Validation routine for web sites and URLs.
+     *
+     * @param string $site_url site or URL
+     *
+     * @return error message if site or URL is invalid
+     */
+
+    public function validate_site_and_url($site_url)
+    {
+        clearos_profile(__METHOD__, __LINE__);
+
+        if ($this->validate_site($site_url) && $this->validate_url($site_url))
+            return lang('content_filter_site_invalid');
+    }
+
+    /**
      * Validation routine for web sites.
      *
      * @param string $site web site
@@ -2295,7 +2311,7 @@ class DansGuardian extends Daemon
     {
         clearos_profile(__METHOD__, __LINE__);
 
-        if (! (preg_match("/^([\w\._\-\/]+)$/", $url)))
+        if (! (preg_match("/^([\w\.:_&\-\/=\?]+)$/", $url)))
             return lang('content_filter_url_invalid');
     }
 
@@ -2733,10 +2749,10 @@ class DansGuardian extends Daemon
         $urls = array();
 
         foreach ($sourcelist as $value) {
-            if ($this->validate_site($value) || $this->validate_ip($value)) {
+            if (!$this->validate_site($value) || !$this->validate_ip($value)) {
                 $sites[] = $value;
-            } else if ($this->validate_url($value)) {
-                $urls[] = $value;
+            } else if (!$this->validate_url($value)) {
+                $urls[] = preg_replace('/^http[s]*:\/\//', '', $value);
             } else if (preg_match("/^\s$/", $value)) {
                 continue; // Ignore blank entries
             } else {

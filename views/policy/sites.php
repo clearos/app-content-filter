@@ -72,7 +72,7 @@ $headers = array(
 ///////////////////////////////////////////////////////////////////////////////
 
 foreach ($sites as $site) {
-    $site_route = preg_replace('/\//', 'X', $site);
+    $site_route = strtr(base64_encode($site),  '+/=', '-_.');
 
     $item['title'] = $site;
     $item['action'] = "/app/content_filter/$basename/delete/$policy/$site_route";
