@@ -66,6 +66,7 @@ use \clearos\apps\base\Daemon as Daemon;
 use \clearos\apps\base\File as File;
 use \clearos\apps\base\File_Types as File_Types;
 use \clearos\apps\base\Folder as Folder;
+use \clearos\apps\base\Tuning as Tuning;
 use \clearos\apps\groups\Group_Manager_Factory as Group_Manager_Factory;
 use \clearos\apps\network\Network_Utils as Network_Utils;
 
@@ -73,6 +74,7 @@ clearos_load_library('base/Daemon');
 clearos_load_library('base/File');
 clearos_load_library('base/File_Types');
 clearos_load_library('base/Folder');
+clearos_load_library('base/Tuning');
 clearos_load_library('groups/Group_Manager_Factory');
 clearos_load_library('network/Network_Utils');
 
@@ -1491,6 +1493,35 @@ class DansGuardian extends Daemon
     }
 
     /**
+     * Returns tuning level.
+     *
+     * @return string tuning level
+     * @throws Engine_Exception
+     */
+
+    public function get_tuning_defaults()
+    {
+        clearos_profile(__METHOD__, __LINE__);
+
+        if (clearos_app_installed('performance_tuning')) {
+            clearos_load_library('performance_tuning/Performance_Tuning');
+
+            $performance = new \clearos\apps\performance_tuning\Performance_Tuning();
+            $tuning = $performance->get_content_filter_tuning();
+        } else {
+            $tuning['level'] = Tuning::LEVEL_HOME_NETWORK;
+            $tuning['maxchildren'] = 120;
+            $tuning['minchildren'] = 8;
+            $tuning['minsparechildren'] = 4;
+            $tuning['preforkchildren'] = 6;
+            $tuning['maxsparechildren'] = 30;
+            $tuning['maxagechildren'] = 500;
+        }
+
+        return $tuning;
+    }
+
+    /**
      * Sets the access denied page.
      *
      * @param string $url access denied URL
@@ -1961,6 +1992,24 @@ class DansGuardian extends Daemon
         }
 
         $this->_set_configuration_by_key('weightedphraselist', $lines, $policy);
+    }
+
+    /**
+     * Sets tuning parameters.
+     *
+     * @param array $tuning tuning parameters
+     *
+     * @return void
+     * @throws Engine_Exception, Validation_Exception
+     */
+
+    public function set_tuning($tuning)
+    {
+        clearos_profile(__METHOD__, __LINE__);
+
+        $this->_set_configuration_value('maxchildren', $tuning['maxchildren']);
+
+        print_r($tuning);
     }
 
     ///////////////////////////////////////////////////////////////////////////
