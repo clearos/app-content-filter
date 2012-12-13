@@ -63,3 +63,8 @@ $app['core_file_manifest'] = array(
     'dansguardian-av.php'=> array('target' => '/var/clearos/base/daemon/dansguardian-av.php'),
     'content_filter.acl'=> array('target' => '/var/clearos/base/access_control/public/content_filter'),
 );
+
+$app['delete_dependency'] = array(
+    'app-content-filter-core',
+    'dansguardian-av'
+);
