@@ -36,12 +36,15 @@
 $this->lang->load('base');
 $this->lang->load('content_filter');
 
-$mode = 'edit';
-if ($mode === 'edit') {
+///////////////////////////////////////////////////////////////////////////////
+// Form handler
+///////////////////////////////////////////////////////////////////////////////
+
+if ($form_type === 'edit') {
     $read_only = FALSE;
     $buttons = array(
         form_submit_update('submit'),
-        anchor_cancel('/app/content_filter')
+        anchor_cancel('/app/content_filter/settings')
     );
 } else {
     $read_only = TRUE;
@@ -54,7 +57,7 @@ if ($mode === 'edit') {
 // Form
 ///////////////////////////////////////////////////////////////////////////////
 
-echo form_open('/app/content_filter/settings/edit');
+echo form_open('/content_filter/settings/edit');
 echo form_header(lang('base_settings'));
 
 echo field_toggle_enable_disable('reverse', $reverse, lang('content_filter_reverse_address_lookups'), $read_only);

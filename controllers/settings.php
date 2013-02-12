@@ -55,8 +55,41 @@ class Settings extends ClearOS_Controller
 
     function index()
     {
-        // TODO: this is not active at the moment... is it used?
+        $this->view();
+    }
 
+    /**
+     * Content filter settings edit view.
+     *
+     * @return view
+     */
+
+    function edit()
+    {
+        $this->_common('edit');
+    }
+
+    /**
+     * Content filter settings view view.
+     *
+     * @return view
+     */
+
+    function view()
+    {
+        $this->_common('view');
+    }
+
+    /**
+     * Content filter common form handler.
+     *
+     * @param string $form_type form type
+     *
+     * @return view
+     */
+
+    function _common($form_type)
+    {
         // Load dependencies
         //------------------
 
@@ -69,10 +102,27 @@ class Settings extends ClearOS_Controller
         $this->form_validation->set_policy('reverse', 'content_filter/DansGuardian', 'validate_reverse_lookups');
         $form_ok = $this->form_validation->run();
 
+        // Handle form submit
+        //-------------------
+
+        if (($this->input->post('submit') && $form_ok)) {
+            try {
+                $this->dansguardian->set_reverse_lookups($this->input->post('reverse'));
+
+                $this->page->set_status_updated();
+
+                redirect('/content_filter/settings');
+            } catch (Exception $e) {
+                $this->page->view_exception($e);
+                return;
+            }
+        }
+
         // Load view data
         //---------------
 
         try {
+            $data['form_type'] = $form_type;
             $data['reverse'] = $this->dansguardian->get_reverse_lookups();
         } catch (Exception $e) {
             $this->page->view_exception($e);

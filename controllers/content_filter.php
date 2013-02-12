@@ -65,6 +65,7 @@ class Content_Filter extends ClearOS_Controller
 
         $views = array(
             'content_filter/server',
+            'content_filter/settings',
             'content_filter/global_settings',
             'content_filter/policy',
         );

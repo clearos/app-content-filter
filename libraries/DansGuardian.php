@@ -1463,7 +1463,11 @@ class DansGuardian extends Daemon
     {
         clearos_profile(__METHOD__, __LINE__);
 
-        return $this->_get_configuration_value('reverseaddresslookups');
+        $value = $this->_get_configuration_value('reverseaddresslookups');
+
+        $state = preg_match('/^\s*on\s*$/i', $value) ? TRUE : FALSE;
+
+        return $state;
     }
 
     /**
@@ -1738,6 +1742,8 @@ class DansGuardian extends Daemon
     public function set_reverse_lookups($state)
     {
         clearos_profile(__METHOD__, __LINE__);
+
+        $state = ($state) ? 'on' : 'off';
 
         $this->_set_configuration_value('reverseaddresslookups', $state);
     }
@@ -2250,6 +2256,22 @@ class DansGuardian extends Daemon
 
         if (!(is_numeric($level) && ($level <= 3) && ($level >= -1)))
             return lang('content_filter_reporting_level_invalid');
+    }
+
+    /**
+     * Validation routine for reverse address lookups.
+     *
+     * @param boolean $state reverse address lookup state
+     *
+     * @return string error message if reverse address lookup state is invalid
+     */
+
+    public function validate_reverse_lookups($state)
+    {
+        clearos_profile(__METHOD__, __LINE__);
+
+        if (! clearos_is_valid_boolean($state))
+            return lang('content_filter_reverse_address_lookups_invalid');
     }
 
     /**
