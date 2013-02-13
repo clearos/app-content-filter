@@ -2394,7 +2394,7 @@ class DansGuardian extends Daemon
     {
         clearos_profile(__METHOD__, __LINE__);
 
-        if (! (preg_match("/^([\w\.:_&\-\/=\?]+)$/", $url)))
+        if (! (preg_match("/^([\w\.:_&\-\/=\?~]+)$/", $url)))
             return lang('content_filter_url_invalid');
     }
 
