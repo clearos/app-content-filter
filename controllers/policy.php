@@ -85,6 +85,16 @@ class Policy extends ClearOS_Controller
 
     function add()
     {
+        // Show account status widget if we're not in a happy state
+        //---------------------------------------------------------
+
+        $this->load->module('accounts/status');
+
+        if ($this->status->unhappy()) {
+            $this->status->widget('users');
+            return;
+        }
+
         $this->_item('add');
     }
 
