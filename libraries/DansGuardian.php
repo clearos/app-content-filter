@@ -117,6 +117,7 @@ class DansGuardian extends Daemon
     const PATH_PHRASELISTS = '/etc/dansguardian-av/lists/phraselists';
     const PATH_LOCALE = '/etc/dansguardian-av/languages';
     const PATH_LOGS = '/var/log/dansguardian';
+    const FILE_APP_CONFIG = '/etc/clearos/content_filter.conf';
     const FILE_CONFIG = '/etc/dansguardian-av/dansguardian.conf';
     const FILE_CONFIG_FILTER_GROUP = '/etc/dansguardian-av/dansguardianf%d.conf';
     const FILE_EXTENSIONS_LIST = '/etc/dansguardian-av/lists/bannedextensionlist';
@@ -396,6 +397,35 @@ class DansGuardian extends Daemon
         return $id;
     }
 
+    /**
+     * Sets auto tuning parameters.
+     *
+     * @param array $tuning tuning parameters
+     *
+     * @return void
+     * @throws Engine_Exception, Validation_Exception
+     */
+
+    public function auto_tune()
+    {
+        clearos_profile(__METHOD__, __LINE__);
+
+        $file = new File(self::FILE_APP_CONFIG);
+
+        $auto_state = $file->lookup_value('/auto_tune\s*=\s*/');
+
+        if (!preg_match('/yes/i', $auto_state))
+            return;
+
+        $tuning = $this->get_tuning();
+
+        $this->_set_configuration_value('maxchildren', $tuning['maxchildren']);
+        $this->_set_configuration_value('maxagechildren', $tuning['maxagechildren']);
+        $this->_set_configuration_value('maxsparechildren', $tuning['maxsparechildren']);
+        $this->_set_configuration_value('minchildren', $tuning['minchildren']);
+        $this->_set_configuration_value('minsparechildren', $tuning['minsparechildren']);
+        $this->_set_configuration_value('preforkchildren', $tuning['preforkchildren']);
+    }
 
     /** 
      * Removes unavailable blacklists from configuration files.
@@ -1503,7 +1533,7 @@ class DansGuardian extends Daemon
      * @throws Engine_Exception
      */
 
-    public function get_tuning_defaults()
+    public function get_tuning()
     {
         clearos_profile(__METHOD__, __LINE__);
 
@@ -1998,24 +2028,6 @@ class DansGuardian extends Daemon
         }
 
         $this->_set_configuration_by_key('weightedphraselist', $lines, $policy);
-    }
-
-    /**
-     * Sets tuning parameters.
-     *
-     * @param array $tuning tuning parameters
-     *
-     * @return void
-     * @throws Engine_Exception, Validation_Exception
-     */
-
-    public function set_tuning($tuning)
-    {
-        clearos_profile(__METHOD__, __LINE__);
-
-        $this->_set_configuration_value('maxchildren', $tuning['maxchildren']);
-
-        print_r($tuning);
     }
 
     ///////////////////////////////////////////////////////////////////////////

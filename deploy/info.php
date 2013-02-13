@@ -5,7 +5,7 @@
 /////////////////////////////////////////////////////////////////////////////
 
 $app['basename'] = 'content_filter';
-$app['version'] = '1.2.1';
+$app['version'] = '1.2.2';
 $app['release'] = '1';
 $app['vendor'] = 'ClearFoundation';
 $app['packager'] = 'ClearFoundation';
@@ -26,6 +26,7 @@ $app['subcategory'] = lang('base_subcategory_content_filter_and_proxy');
 /////////////////////////////////////////////////////////////////////////////
 
 $app['controllers']['content_filter']['title'] = lang('content_filter_app_name');
+$app['controllers']['settings']['title'] = lang('base_settings');
 $app['controllers']['policy']['title'] = lang('content_filter_policy');
 
 /////////////////////////////////////////////////////////////////////////////
@@ -35,6 +36,7 @@ $app['controllers']['policy']['title'] = lang('content_filter_policy');
 $app['requires'] = array(
     'app-antiphishing',
     'app-antivirus',
+    'app-base >= 1:1.4.15',
     'app-network',
     'app-groups',
     'app-web-proxy'
@@ -62,6 +64,14 @@ $app['core_file_manifest'] = array(
     'filewatch-content-filter-network.conf'=> array('target' => '/etc/clearsync.d/filewatch-content-filter-network.conf'),
     'dansguardian-av.php'=> array('target' => '/var/clearos/base/daemon/dansguardian-av.php'),
     'content_filter.acl'=> array('target' => '/var/clearos/base/access_control/public/content_filter'),
+    'content_filter.conf' => array(
+        'target' => '/etc/clearos/content_filter.conf',
+        'mode' => '0644',
+        'owner' => 'root',
+        'group' => 'root',
+        'config' => TRUE,
+        'config_params' => 'noreplace',
+    ),
 );
 
 $app['delete_dependency'] = array(

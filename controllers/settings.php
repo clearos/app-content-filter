@@ -94,6 +94,7 @@ class Settings extends ClearOS_Controller
         //------------------
 
         $this->lang->load('content_filter');
+        $this->load->library('base/Tuning');
         $this->load->library('content_filter/DansGuardian');
 
         // Set validation rules
@@ -108,6 +109,7 @@ class Settings extends ClearOS_Controller
         if (($this->input->post('submit') && $form_ok)) {
             try {
                 $this->dansguardian->set_reverse_lookups($this->input->post('reverse'));
+                $this->dansguardian->auto_tune();
 
                 $this->page->set_status_updated();
 
@@ -124,6 +126,10 @@ class Settings extends ClearOS_Controller
         try {
             $data['form_type'] = $form_type;
             $data['reverse'] = $this->dansguardian->get_reverse_lookups();
+
+            $data['levels'] = $this->tuning->get_levels();
+            $tuning = $this->dansguardian->get_tuning();
+            $data['level'] = $tuning['level'];
         } catch (Exception $e) {
             $this->page->view_exception($e);
             return;

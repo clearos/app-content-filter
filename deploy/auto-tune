@@ -1,13 +1,14 @@
+#!/usr/clearos/sandbox/usr/bin/php
 <?php
 
 /**
- * Content filter global settings controller.
+ * DansGuardian tuning.
  *
  * @category   Apps
  * @package    Content_Filter
- * @subpackage Views
+ * @subpackage Scripts
  * @author     ClearFoundation <developer@clearfoundation.com>
- * @copyright  2011 ClearFoundation
+ * @copyright  2013 ClearFoundation
  * @license    http://www.gnu.org/copyleft/gpl.html GNU General Public License version 3 or later
  * @link       http://www.clearfoundation.com/docs/developer/apps/content_filter/
  */
@@ -25,44 +26,28 @@
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with this program.  If not, see <http://www.gnu.org/licenses/>.  
-//  
+// along with this program.  If not, see <http://www.gnu.org/licenses/>.
+//
 ///////////////////////////////////////////////////////////////////////////////
 
 ///////////////////////////////////////////////////////////////////////////////
-// Load dependencies
+// B O O T S T R A P
 ///////////////////////////////////////////////////////////////////////////////
 
-$this->lang->load('base');
-$this->lang->load('content_filter');
+$bootstrap = getenv('CLEAROS_BOOTSTRAP') ? getenv('CLEAROS_BOOTSTRAP') : '/usr/clearos/framework/shared';
+require_once $bootstrap . '/bootstrap.php';
 
 ///////////////////////////////////////////////////////////////////////////////
-// Form handler
+// D E P E N D E N C I E S
 ///////////////////////////////////////////////////////////////////////////////
 
-if ($form_type === 'edit') {
-    $read_only = FALSE;
-    $buttons = array(
-        form_submit_update('submit'),
-        anchor_cancel('/app/content_filter/settings')
-    );
-} else {
-    $read_only = TRUE;
-    $buttons = array(
-        anchor_edit('/app/content_filter/settings/edit'),
-    );
-}
+use \clearos\apps\content_filter\DansGuardian as DansGuardian;
+
+clearos_load_library('content_filter/DansGuardian');
 
 ///////////////////////////////////////////////////////////////////////////////
-// Form
+// M A I N
 ///////////////////////////////////////////////////////////////////////////////
 
-echo form_open('/content_filter/settings/edit');
-echo form_header(lang('base_settings'));
-
-echo field_toggle_enable_disable('reverse', $reverse, lang('content_filter_reverse_address_lookups'), $read_only);
-echo field_dropdown('levels', $levels, $level, lang('base_performance_level'), TRUE);
-echo field_button_set($buttons);
-
-echo form_footer();
-echo form_close();
+$dansguardian = new DansGuardian();
+$dansguardian->auto_tune();

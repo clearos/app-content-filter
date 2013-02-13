@@ -1,7 +1,7 @@
 
 Name: app-content-filter
 Epoch: 1
-Version: 1.2.1
+Version: 1.2.2
 Release: 1%{dist}
 Summary: Content Filter
 License: GPLv3
@@ -12,6 +12,7 @@ Requires: %{name}-core = 1:%{version}-%{release}
 Requires: app-base
 Requires: app-antiphishing
 Requires: app-antivirus
+Requires: app-base >= 1:1.4.15
 Requires: app-network
 Requires: app-groups
 Requires: app-web-proxy
@@ -50,6 +51,7 @@ cp -r * %{buildroot}/usr/clearos/apps/content_filter/
 install -d -m 0755 %{buildroot}/var/clearos/content_filter
 install -d -m 0755 %{buildroot}/var/clearos/content_filter/backup/
 install -D -m 0644 packaging/content_filter.acl %{buildroot}/var/clearos/base/access_control/public/content_filter
+install -D -m 0644 packaging/content_filter.conf %{buildroot}/etc/clearos/content_filter.conf
 install -D -m 0644 packaging/dansguardian-av.php %{buildroot}/var/clearos/base/daemon/dansguardian-av.php
 install -D -m 0644 packaging/filewatch-content-filter-configuration.conf %{buildroot}/etc/clearsync.d/filewatch-content-filter-configuration.conf
 install -D -m 0644 packaging/filewatch-content-filter-network.conf %{buildroot}/etc/clearsync.d/filewatch-content-filter-network.conf
@@ -98,6 +100,7 @@ exit 0
 /usr/clearos/apps/content_filter/language
 /usr/clearos/apps/content_filter/libraries
 /var/clearos/base/access_control/public/content_filter
+%config(noreplace) /etc/clearos/content_filter.conf
 /var/clearos/base/daemon/dansguardian-av.php
 /etc/clearsync.d/filewatch-content-filter-configuration.conf
 /etc/clearsync.d/filewatch-content-filter-network.conf
