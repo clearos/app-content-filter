@@ -1,7 +1,7 @@
 
 Name: app-content-filter
 Epoch: 1
-Version: 1.2.2
+Version: 1.4.20
 Release: 1%{dist}
 Summary: Content Filter
 License: GPLv3
