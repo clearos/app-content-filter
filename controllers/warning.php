@@ -109,7 +109,7 @@ class Warning extends ClearOS_Controller
         // Load views
         //-----------
 
-        $page['type'] = MY_Page::TYPE_SPLASH;
+        $page['type'] = MY_Page::TYPE_SPLASH_ORGANIZATION;
 
         $this->page->view_form('content_filter/warning', $data, lang('content_filter_content_filter'), $page);
     }
