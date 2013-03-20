@@ -34,6 +34,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 $this->lang->load('base');
+$this->lang->load('groups');
 $this->lang->load('content_filter');
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -57,9 +58,9 @@ if ($form_type === 'edit') {
 if (count($groups) == 0) {
     // TODO: review widget 
     echo infobox_warning(lang('base_warning'), 
-        lang('content_filter_no_user_defined_groups_warning') . '<br><br>' . 
+        lang('groups_no_user_defined_groups_warning') . '<br><br>' . 
         anchor_custom('/app/content_filter', lang('base_back')) . ' ' .
-        anchor_custom('/app/groups', lang('content_filter_add_user_defined_group'))
+        anchor_custom('/app/groups', lang('groups_add_user_defined_group'))
     );
     return;
 }

@@ -1,7 +1,7 @@
 
 Name: app-content-filter
 Epoch: 1
-Version: 1.4.20
+Version: 1.4.22
 Release: 1%{dist}
 Summary: Content Filter
 License: GPLv3
@@ -29,7 +29,7 @@ Requires: app-antiphishing-core
 Requires: app-antivirus-core
 Requires: app-base-core
 Requires: app-firewall-core
-Requires: app-groups-core
+Requires: app-groups-core >= 1:1.4.22
 Requires: app-network-core
 Requires: app-web-proxy-core
 Requires: csplugin-filewatch

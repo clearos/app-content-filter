@@ -5,7 +5,7 @@
 /////////////////////////////////////////////////////////////////////////////
 
 $app['basename'] = 'content_filter';
-$app['version'] = '1.4.20';
+$app['version'] = '1.4.22';
 $app['release'] = '1';
 $app['vendor'] = 'ClearFoundation';
 $app['packager'] = 'ClearFoundation';
@@ -47,7 +47,7 @@ $app['core_requires'] = array(
     'app-antivirus-core',
     'app-base-core',
     'app-firewall-core',
-    'app-groups-core',
+    'app-groups-core >= 1:1.4.22',
     'app-network-core',
     'app-web-proxy-core',
     'csplugin-filewatch',

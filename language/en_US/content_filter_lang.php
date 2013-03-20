@@ -2,14 +2,12 @@
 
 $lang['content_filter_app_name'] = 'Content Filter';
 $lang['content_filter_app_description'] = 'The Content Filter app allows an administrator to enforce Internet browsing policies.  Policies can be enforced across all users or user-specified groups.';
-$lang['content_filter_no_user_defined_groups_warning'] = 'All the user defined groups have a configured filter policy.  If you would like to add a new policy, please add more groups.';
 $lang['content_filter_content_filter'] = 'Content Filter';
 $lang['content_filter_web_address'] = 'Web Address';
 $lang['content_filter_full_report'] = 'Full Report';
 $lang['content_filter_connection_status'] = 'Connection Status';
 $lang['content_filter_page_score'] = 'Page Score';
 $lang['content_filter_content_has_been_blocked'] = 'Content has been blocked.';
-$lang['content_filter_add_user_defined_group'] = 'Add User Defined Group';
 $lang['content_filter_global_settings'] = 'Global Settings';
 $lang['content_filter_exception_ips'] = 'Exception IPs';
 $lang['content_filter_exception_ip'] = 'Exception IP';
