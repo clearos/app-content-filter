@@ -117,7 +117,6 @@ class DansGuardian extends Daemon
     const PATH_PHRASELISTS = '/etc/dansguardian-av/lists/phraselists';
     const PATH_LOCALE = '/etc/dansguardian-av/languages';
     const PATH_LOGS = '/var/log/dansguardian';
-    const FILE_APP_CONFIG = '/etc/clearos/content_filter.conf';
     const FILE_CONFIG = '/etc/dansguardian-av/dansguardian.conf';
     const FILE_CONFIG_FILTER_GROUP = '/etc/dansguardian-av/dansguardianf%d.conf';
     const FILE_EXTENSIONS_LIST = '/etc/dansguardian-av/lists/bannedextensionlist';
@@ -410,14 +409,10 @@ class DansGuardian extends Daemon
     {
         clearos_profile(__METHOD__, __LINE__);
 
-        $file = new File(self::FILE_APP_CONFIG);
-
-        $auto_state = $file->lookup_value('/auto_tune\s*=\s*/');
-
-        if (!preg_match('/yes/i', $auto_state))
-            return;
-
         $tuning = $this->get_tuning();
+
+        if (empty($tuning) || $tuning['level'] == Tuning::LEVEL_CUSTOM)
+            return;
 
         $this->_set_configuration_value('maxchildren', $tuning['maxchildren']);
         $this->_set_configuration_value('maxagechildren', $tuning['maxagechildren']);
@@ -1548,8 +1543,8 @@ class DansGuardian extends Daemon
             $tuning['minchildren'] = 8;
             $tuning['minsparechildren'] = 4;
             $tuning['preforkchildren'] = 6;
-            $tuning['maxsparechildren'] = 30;
-            $tuning['maxagechildren'] = 500;
+            $tuning['maxsparechildren'] = 32;
+            $tuning['maxagechildren'] = 1000;
         }
 
         return $tuning;

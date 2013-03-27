@@ -15,4 +15,7 @@ fi
 
 /usr/clearos/apps/content_filter/deploy/syncaction
 
+# FIXME - Remove after 6.4.0 Final release - no longer used
+rm -f /etc/clearos/content_filter.conf
+
 exit 0

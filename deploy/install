@@ -9,14 +9,6 @@ if [ -z "$CHECK" ]; then
     sed -i -e 's/#[[:space:]]*maxlogitemlength.*/maxlogitemlength = 400/' /etc/dansguardian-av/dansguardian.conf
 fi
 
-# Enable auto-tune by default on new installs (leave disabled on existing boxes)
-#-------------------------------------------------------------------------------
-
-if [ -e /etc/clearos/content_filter.conf ]; then
-    logger -p local6.notice -t installer "app-content-filter-core - enabling auto-tuning"
-    sed -i -e 's/auto_tune[[:space:]]*=.*/auto_tune = yes/' /etc/clearos/content_filter.conf
-fi
-
 # Set default filtergroupslist
 #-----------------------------
 
