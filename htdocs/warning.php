@@ -3,9 +3,9 @@
 /**
  * Content filter warning page.
  *
- * @category   Apps
- * @package    Content_Filter
- * @subpackage Helpers
+ * @category   apps
+ * @package    content-filter
+ * @subpackage configuration
  * @author     ClearFoundation <developer@clearfoundation.com>
  * @copyright  2011 ClearFoundation
  * @license    http://www.gnu.org/copyleft/gpl.html GNU General Public License version 3 or later

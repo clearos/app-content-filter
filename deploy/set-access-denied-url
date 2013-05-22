@@ -4,9 +4,9 @@
 /**
  * DansGuardian access denied URL helper.
  *
- * @category   Apps
- * @package    Content_Filter
- * @subpackage Scripts
+ * @category   apps
+ * @package    content-filter
+ * @subpackage scripts
  * @author     ClearFoundation <developer@clearfoundation.com>
  * @copyright  2008-2011 ClearFoundation
  * @license    http://www.gnu.org/copyleft/gpl.html GNU General Public License version 3 or later
