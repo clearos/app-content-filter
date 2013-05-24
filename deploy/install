@@ -1,5 +1,7 @@
 #!/bin/sh
 
+TIMESTAMP=`date "+%b-%d-%Y-%T"`
+
 # Tweak maxlogitemlength - see http://tracker.clearfoundation.com/view.php?id=424
 #-----------------------
 
@@ -14,6 +16,17 @@ fi
 
 logger -p local6.notice -t installer "app-content-filter-core - setting filter groups list"
 echo "clearos_any_user" > /etc/dansguardian-av/lists/filtergroupslist
+
+# Set default configuration
+#--------------------------
+
+logger -p local6.notice -t installer "app-content-filter-core - setting exceptionsitelist configuration"
+
+if [ -e /etc/dansguardian-av/lists/exceptionsitelist ]; then
+    cp /etc/dansguardian-av/lists/exceptionsitelist /var/clearos/content_filter/backup/exceptionsitelist.$TIMESTAMP
+fi
+
+cp /usr/clearos/apps/content_filter/deploy/exceptionsitelist /etc/dansguardian-av/lists/exceptionsitelist
 
 # Set tuning
 #-----------
