@@ -7,7 +7,7 @@
  * @package    content-filter
  * @subpackage libraries
  * @author     ClearFoundation <developer@clearfoundation.com>
- * @copyright  2005-2011 ClearFoundation
+ * @copyright  2005-2013 ClearFoundation
  * @license    http://www.gnu.org/copyleft/lgpl.html GNU Lesser General Public License version 3 or later
  * @link       http://www.clearfoundation.com/docs/developer/apps/content_filter/
  */
@@ -101,7 +101,7 @@ clearos_load_library('base/Validation_Exception');
  * @package    content-filter
  * @subpackage libraries
  * @author     ClearFoundation <developer@clearfoundation.com>
- * @copyright  2005-2011 ClearFoundation
+ * @copyright  2005-2013 ClearFoundation
  * @license    http://www.gnu.org/copyleft/lgpl.html GNU Lesser General Public License version 3 or later
  * @link       http://www.clearfoundation.com/docs/developer/apps/content_filter/
  */
@@ -548,6 +548,9 @@ class DansGuardian extends Daemon
 
         if (count($urls) > 0)
             $this->_delete_items_by_key('bannedurllist', $urls, $policy);
+
+        // Delete stray sites out of bannedurllist (see tracker #1159)
+        $this->_delete_items_by_key('bannedurllist', $sites, $policy);
     }
 
     /**
@@ -2827,10 +2830,12 @@ class DansGuardian extends Daemon
         $urls = array();
 
         foreach ($sourcelist as $value) {
+            $value = preg_replace('/^http[s]*:\/\//', '', $value);
+
             if (!$this->validate_site($value) || !$this->validate_ip($value)) {
                 $sites[] = $value;
             } else if (!$this->validate_url($value)) {
-                $urls[] = preg_replace('/^http[s]*:\/\//', '', $value);
+                $urls[] = $value;
             } else if (preg_match("/^\s$/", $value)) {
                 continue; // Ignore blank entries
             } else {
