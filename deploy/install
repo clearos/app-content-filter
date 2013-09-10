@@ -28,12 +28,13 @@ fi
 
 cp /usr/clearos/apps/content_filter/deploy/exceptionsitelist /etc/dansguardian-av/lists/exceptionsitelist
 
+# Set boot policy
+#----------------
+
+logger -p local6.notice -t installer "app-content-filter-core - disabling content filter server"
+/sbin/chkconfig dansguardian-av off
+
 # Set tuning
 #-----------
 
 /usr/clearos/apps/content_filter/deploy/auto-tune
-
-# Reload clearsyncd
-#------------------
-
-/sbin/service clearsyncd condrestart >/dev/null 2>&1
