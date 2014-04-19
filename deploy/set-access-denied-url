@@ -79,19 +79,19 @@ try {
     $lan_interface = $role->get_interface_definition(Firewall::ROLE_LAN);
     $ext_interface = $role->get_interface_definition(Firewall::ROLE_EXTERNAL);
 } catch (Exception $e) {
-	echo "error: " . clearos_exception_message($e) . "\n";
-	exit(1);
+    echo "error: " . clearos_exception_message($e) . "\n";
+    exit(1);
 }
 
 // Determine which network interface to use
 //-----------------------------------------
 
 if ($ext_interface && (($mode == Network::MODE_STANDALONE) || ($mode == Network::MODE_TRUSTED_STANDALONE)))
-	$use_interface = $ext_interface;
+    $use_interface = $ext_interface;
 else if ($lan_interface)
-	$use_interface = $lan_interface;
+    $use_interface = $lan_interface;
 else
-	exit(0);
+    exit(0);
 
 // Determine the IP address to use in access denied URL
 //-----------------------------------------------------
@@ -100,24 +100,24 @@ try {
     $iface = new Iface($use_interface);
 
     if ($iface->is_configured())
-		$ip = $iface->get_live_ip();
+        $ip = $iface->get_live_ip();
 
-	if (empty($ip))
-		exit(0);
+    if (empty($ip))
+        exit(0);
 } catch (Exception $e) {
-	echo "error: " . clearos_exception_message($e) . "\n";
-	exit(1);
+    echo "error: " . clearos_exception_message($e) . "\n";
+    exit(1);
 }
 
 // Set the access denied URL
 //--------------------------
 
 try {
-	$dansguardian = new DansGuardian();
+    $dansguardian = new DansGuardian();
     $dansguardian->set_access_denied_url("http://$ip:82/approot/content_filter/htdocs/warning.php");
 } catch (Exception $e) {
-	echo "error: " . clearos_exception_message($e) . "\n";
-	exit(1);
+    echo "error: " . clearos_exception_message($e) . "\n";
+    exit(1);
 }
 
 // vim: syntax=php ts=4
