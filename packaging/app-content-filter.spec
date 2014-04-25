@@ -28,6 +28,7 @@ Requires: app-base-core
 Requires: app-antiphishing-core
 Requires: app-antivirus-core
 Requires: app-base-core
+Requires: app-events-core
 Requires: app-firewall-core
 Requires: app-groups-core >= 1:1.4.22
 Requires: app-network-core
@@ -53,7 +54,7 @@ install -d -m 0755 %{buildroot}/var/clearos/content_filter/backup/
 install -D -m 0644 packaging/content_filter.acl %{buildroot}/var/clearos/base/access_control/public/content_filter
 install -D -m 0644 packaging/dansguardian-av.php %{buildroot}/var/clearos/base/daemon/dansguardian-av.php
 install -D -m 0644 packaging/filewatch-content-filter-configuration.conf %{buildroot}/etc/clearsync.d/filewatch-content-filter-configuration.conf
-install -D -m 0644 packaging/filewatch-content-filter-network.conf %{buildroot}/etc/clearsync.d/filewatch-content-filter-network.conf
+install -D -m 0755 packaging/network-configuration-event %{buildroot}/var/clearos/events/network_configuration/content_filter
 
 %post
 logger -p local6.notice -t installer 'app-content-filter - installing'
@@ -91,7 +92,6 @@ exit 0
 %files core
 %defattr(-,root,root)
 %exclude /usr/clearos/apps/content_filter/packaging
-%exclude /usr/clearos/apps/content_filter/tests
 %dir /usr/clearos/apps/content_filter
 %dir /var/clearos/content_filter
 %dir /var/clearos/content_filter/backup/
@@ -101,4 +101,4 @@ exit 0
 /var/clearos/base/access_control/public/content_filter
 /var/clearos/base/daemon/dansguardian-av.php
 /etc/clearsync.d/filewatch-content-filter-configuration.conf
-/etc/clearsync.d/filewatch-content-filter-network.conf
+/var/clearos/events/network_configuration/content_filter

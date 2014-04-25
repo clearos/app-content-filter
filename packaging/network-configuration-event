@@ -1,0 +1,6 @@
+#!/bin/sh
+
+# Set access denied URL
+#----------------------
+
+/usr/clearos/apps/content_filter/deploy/set-access-denied-url

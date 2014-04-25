@@ -46,6 +46,7 @@ $app['core_requires'] = array(
     'app-antiphishing-core',
     'app-antivirus-core',
     'app-base-core',
+    'app-events-core',
     'app-firewall-core',
     'app-groups-core >= 1:1.4.22',
     'app-network-core',
@@ -61,9 +62,12 @@ $app['core_directory_manifest'] = array(
 
 $app['core_file_manifest'] = array(
     'filewatch-content-filter-configuration.conf'=> array('target' => '/etc/clearsync.d/filewatch-content-filter-configuration.conf'),
-    'filewatch-content-filter-network.conf'=> array('target' => '/etc/clearsync.d/filewatch-content-filter-network.conf'),
     'dansguardian-av.php'=> array('target' => '/var/clearos/base/daemon/dansguardian-av.php'),
     'content_filter.acl'=> array('target' => '/var/clearos/base/access_control/public/content_filter'),
+    'network-configuration-event'=> array(
+        'target' => '/var/clearos/events/network_configuration/content_filter',
+        'mode' => '0755'
+    )
 );
 
 $app['delete_dependency'] = array(
