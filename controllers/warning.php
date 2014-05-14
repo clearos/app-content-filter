@@ -79,6 +79,7 @@ class Warning extends ClearOS_Controller
         $reason = base64_decode(strtr($reason, '-_.', '+/='));
 
         if (preg_match('/:.*\(.*\)/', $reason)) {
+            // FIXME: split() is deprecated
             list($reason_header, $details) = split('\(', $reason, 2);
             list($description, $summary) = split(':', $reason_header, 2);
 
