@@ -64,6 +64,12 @@ $app['core_file_manifest'] = array(
     'filewatch-content-filter-configuration.conf'=> array('target' => '/etc/clearsync.d/filewatch-content-filter-configuration.conf'),
     'dansguardian-av.php'=> array('target' => '/var/clearos/base/daemon/dansguardian-av.php'),
     'content_filter.acl'=> array('target' => '/var/clearos/base/access_control/public/content_filter'),
+    'content_filter.conf' => array(
+        'target' => '/etc/clearos/content_filter.conf',
+        'mode' => '0644',
+        'config' => TRUE,
+        'config_params' => 'noreplace',
+    ),
     'network-configuration-event'=> array(
         'target' => '/var/clearos/events/network_configuration/content_filter',
         'mode' => '0755'

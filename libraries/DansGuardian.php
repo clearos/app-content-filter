@@ -7,7 +7,7 @@
  * @package    content-filter
  * @subpackage libraries
  * @author     ClearFoundation <developer@clearfoundation.com>
- * @copyright  2005-2013 ClearFoundation
+ * @copyright  2005-2014 ClearFoundation
  * @license    http://www.gnu.org/copyleft/lgpl.html GNU Lesser General Public License version 3 or later
  * @link       http://www.clearfoundation.com/docs/developer/apps/content_filter/
  */
@@ -67,16 +67,24 @@ use \clearos\apps\base\File as File;
 use \clearos\apps\base\File_Types as File_Types;
 use \clearos\apps\base\Folder as Folder;
 use \clearos\apps\base\Tuning as Tuning;
+use \clearos\apps\firewall\Firewall as Firewall;
 use \clearos\apps\groups\Group_Manager_Factory as Group_Manager_Factory;
+use \clearos\apps\network\Iface as Iface;
+use \clearos\apps\network\Network as Network;
 use \clearos\apps\network\Network_Utils as Network_Utils;
+use \clearos\apps\network\Role as Role;
 
 clearos_load_library('base/Daemon');
 clearos_load_library('base/File');
 clearos_load_library('base/File_Types');
 clearos_load_library('base/Folder');
 clearos_load_library('base/Tuning');
+clearos_load_library('firewall/Firewall');
 clearos_load_library('groups/Group_Manager_Factory');
+clearos_load_library('network/Iface');
+clearos_load_library('network/Network');
 clearos_load_library('network/Network_Utils');
+clearos_load_library('network/Role');
 
 // Exceptions
 //-----------
@@ -84,10 +92,12 @@ clearos_load_library('network/Network_Utils');
 use \Exception as Exception;
 use \clearos\apps\base\Engine_Exception as Engine_Exception;
 use \clearos\apps\base\File_No_Match_Exception as File_No_Match_Exception;
+use \clearos\apps\base\File_Not_Found_Exception as File_Not_Found_Exception;
 use \clearos\apps\base\Validation_Exception as Validation_Exception;
 
 clearos_load_library('base/Engine_Exception');
 clearos_load_library('base/File_No_Match_Exception');
+clearos_load_library('base/File_Not_Found_Exception');
 clearos_load_library('base/Validation_Exception');
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -101,7 +111,7 @@ clearos_load_library('base/Validation_Exception');
  * @package    content-filter
  * @subpackage libraries
  * @author     ClearFoundation <developer@clearfoundation.com>
- * @copyright  2005-2013 ClearFoundation
+ * @copyright  2005-2014 ClearFoundation
  * @license    http://www.gnu.org/copyleft/lgpl.html GNU Lesser General Public License version 3 or later
  * @link       http://www.clearfoundation.com/docs/developer/apps/content_filter/
  */
@@ -117,6 +127,7 @@ class DansGuardian extends Daemon
     const PATH_PHRASELISTS = '/etc/dansguardian-av/lists/phraselists';
     const PATH_LOCALE = '/etc/dansguardian-av/languages';
     const PATH_LOGS = '/var/log/dansguardian';
+    const FILE_APP_CONFIG = '/etc/clearos/content_filter.conf';
     const FILE_CONFIG = '/etc/dansguardian-av/dansguardian.conf';
     const FILE_CONFIG_FILTER_GROUP = '/etc/dansguardian-av/dansguardianf%d.conf';
     const FILE_EXTENSIONS_LIST = '/etc/dansguardian-av/lists/bannedextensionlist';
@@ -394,6 +405,64 @@ class DansGuardian extends Daemon
         $this->_sequence_policies();
 
         return $id;
+    }
+
+    /**
+     * Auto configures DansGuardian.
+     *
+     * @return void
+     * @throws Engine_Exception, Validation_Exception
+     */
+
+    public function auto_configure()
+    {
+        clearos_profile(__METHOD__, __LINE__);
+
+        if (! $this->get_auto_configure_state())
+            return;
+
+        // Grab network info from API
+        //---------------------------
+
+        $network = new Network();
+        $role = new Role();
+
+        $mode = $network->get_mode();
+        $lan_interface = $role->get_interface_definition(Firewall::ROLE_LAN);
+        $ext_interface = $role->get_interface_definition(Firewall::ROLE_EXTERNAL);
+
+        // Determine which network interface to use
+        //-----------------------------------------
+
+        if ($ext_interface && (($mode == Network::MODE_STANDALONE) || ($mode == Network::MODE_TRUSTED_STANDALONE)))
+            $use_interface = $ext_interface;
+        else if ($lan_interface)
+            $use_interface = $lan_interface;
+        else
+            return;
+
+        // Determine the IP address to use in access denied URL
+        //-----------------------------------------------------
+
+        $iface = new Iface($use_interface);
+
+        if ($iface->is_configured())
+            $ip = $iface->get_live_ip();
+
+        if (empty($ip))
+            return;
+
+        // Set access denied URL
+        //----------------------
+
+        $current = $this->get_access_denied_url();
+        $new = "http://$ip:82/approot/content_filter/htdocs/warning.php";
+
+        if ($current !== $new) {
+            clearos_log('content-filter', lang('base_network_configuration_updated'));
+            $this->set_access_denied_url($new);
+            $this->reset(TRUE);
+        }
     }
 
     /**
@@ -711,6 +780,31 @@ class DansGuardian extends Daemon
         clearos_profile(__METHOD__, __LINE__);
 
         return $this->_get_configuration_value('accessdeniedaddress');
+    }
+
+    /**
+     * Returns auto-configure state.
+     *
+     * @return boolean state of auto-configure mode
+     */
+
+    public function get_auto_configure_state()
+    {
+        clearos_profile(__METHOD__, __LINE__);
+
+        try {
+            $file = new File(self::FILE_APP_CONFIG);
+            $value = $file->lookup_value("/^auto_configure\s*=\s*/i");
+        } catch (File_Not_Found_Exception $e) {
+            return FALSE;
+        } catch (File_No_Match_Exception $e) {
+            return FALSE;
+        }
+
+        if (preg_match('/yes/i', $value))
+            return TRUE;
+        else
+            return FALSE;
     }
 
     /**

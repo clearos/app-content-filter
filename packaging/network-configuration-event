@@ -8,7 +8,7 @@
  * @package    content-filter
  * @subpackage scripts
  * @author     ClearFoundation <developer@clearfoundation.com>
- * @copyright  2008-2011 ClearFoundation
+ * @copyright  2008-2014 ClearFoundation
  * @license    http://www.gnu.org/copyleft/gpl.html GNU General Public License version 3 or later
  * @link       http://www.clearfoundation.com/docs/developer/apps/content_filter/
  */
@@ -47,77 +47,13 @@ clearos_load_language('content_filter');
 // D E P E N D E N C I E S
 ///////////////////////////////////////////////////////////////////////////////
 
-// Classes
-//--------
-
 use \clearos\apps\content_filter\DansGuardian as DansGuardian;
-use \clearos\apps\firewall\Firewall as Firewall;
-use \clearos\apps\network\Iface as Iface;
-use \clearos\apps\network\Network as Network;
-use \clearos\apps\network\Role as Role;
 
 clearos_load_library('content_filter/DansGuardian');
-clearos_load_library('firewall/Firewall');
-clearos_load_library('network/Iface');
-clearos_load_library('network/Network');
-clearos_load_library('network/Role');
-
-// Exceptions
-//-----------
-
-use \Exception as Exception;
 
 ///////////////////////////////////////////////////////////////////////////////
 // M A I N
 ///////////////////////////////////////////////////////////////////////////////
 
-$network = new Network();
-$role = new Role();
-
-try {
-    $mode = $network->get_mode();
-    $lan_interface = $role->get_interface_definition(Firewall::ROLE_LAN);
-    $ext_interface = $role->get_interface_definition(Firewall::ROLE_EXTERNAL);
-} catch (Exception $e) {
-    echo "error: " . clearos_exception_message($e) . "\n";
-    exit(1);
-}
-
-// Determine which network interface to use
-//-----------------------------------------
-
-if ($ext_interface && (($mode == Network::MODE_STANDALONE) || ($mode == Network::MODE_TRUSTED_STANDALONE)))
-    $use_interface = $ext_interface;
-else if ($lan_interface)
-    $use_interface = $lan_interface;
-else
-    exit(0);
-
-// Determine the IP address to use in access denied URL
-//-----------------------------------------------------
-
-try {
-    $iface = new Iface($use_interface);
-
-    if ($iface->is_configured())
-        $ip = $iface->get_live_ip();
-
-    if (empty($ip))
-        exit(0);
-} catch (Exception $e) {
-    echo "error: " . clearos_exception_message($e) . "\n";
-    exit(1);
-}
-
-// Set the access denied URL
-//--------------------------
-
-try {
-    $dansguardian = new DansGuardian();
-    $dansguardian->set_access_denied_url("http://$ip:82/approot/content_filter/htdocs/warning.php");
-} catch (Exception $e) {
-    echo "error: " . clearos_exception_message($e) . "\n";
-    exit(1);
-}
-
-// vim: syntax=php ts=4
+$dansguardian = new DansGuardian();
+$dansguardian->auto_configure();
