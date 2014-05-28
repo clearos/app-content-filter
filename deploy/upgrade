@@ -10,9 +10,7 @@ if [ -n "$CHECK" ]; then
     echo "clearos_any_user" > /etc/dansguardian-av/lists/filtergroupslist
 fi
 
-# Run sync action
-#----------------
+# Run network configuration event
+#--------------------------------
 
-/usr/clearos/apps/content_filter/deploy/syncaction
-
-exit 0
+/var/clearos/events/network_configuration/content_filter
