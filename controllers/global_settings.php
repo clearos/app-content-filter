@@ -63,7 +63,7 @@ class Global_Settings extends ClearOS_Controller
         // Load the views
         //---------------
 
-        $this->page->view_form('content_filter/global', $data, lang('content_filter_policy'));
+        $this->page->view_form('content_filter/global', array(), lang('content_filter_policy'));
     }
 
     /**

@@ -46,7 +46,7 @@ echo form_header(lang('content_filter_content_filter'));
 echo field_view(lang('content_filter_web_address'), $url, 'web_address');
 echo field_view(lang('base_description'), $description, 'description');
 
-if ($details)
+if (!empty($details))
     echo field_view(lang('content_filter_full_report'), $details, 'details');
 
 echo form_footer();

@@ -62,6 +62,8 @@ class Warning extends ClearOS_Controller
         $this->lang->load('content_filter');
 
         // TODO: validate
+        $url = (empty($url)) ? '' : $url;
+        $reason = (empty($reason)) ? '' : $reason;
 
         // URL view data
         //--------------
