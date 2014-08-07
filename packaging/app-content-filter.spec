@@ -30,6 +30,7 @@ Requires: app-antivirus-core
 Requires: app-base-core
 Requires: app-events-core
 Requires: app-firewall-core
+Requires: app-policy-manager-core
 Requires: app-groups-core >= 1:1.4.22
 Requires: app-network-core
 Requires: app-web-proxy-core

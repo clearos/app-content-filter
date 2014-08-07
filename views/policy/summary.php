@@ -34,6 +34,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 $this->lang->load('content_filter');
+$this->lang->load('policy_manager');
 
 ///////////////////////////////////////////////////////////////////////////////
 // Items
@@ -85,7 +86,7 @@ $items['exception_sites']['anchors'] = array($anchor);
 ///////////////////////////////////////////////////////////////////////////////
 
 echo action_table(
-    lang('content_filter_policy') . ' - ' . $name,
+    lang('policy_manager_policy') . ' - ' . $name,
     array(anchor_custom('/app/content_filter', lang('content_filter_return_to_summary'))),
     $items
 );

@@ -35,6 +35,7 @@
 
 $this->lang->load('base');
 $this->lang->load('groups');
+$this->lang->load('policy_manager');
 $this->lang->load('content_filter');
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -42,7 +43,7 @@ $this->lang->load('content_filter');
 ///////////////////////////////////////////////////////////////////////////////
 
 $headers = array(
-    lang('content_filter_policy_name'),
+    lang('policy_manager_policy_name'),
     lang('groups_group'),
 );
 

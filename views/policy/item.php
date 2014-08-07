@@ -35,6 +35,7 @@
 
 $this->lang->load('base');
 $this->lang->load('groups');
+$this->lang->load('policy_manager');
 $this->lang->load('content_filter');
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -70,9 +71,9 @@ if (count($groups) == 0) {
 ///////////////////////////////////////////////////////////////////////////////
 
 echo form_open($form);
-echo form_header(lang('content_filter_policy'));
+echo form_header(lang('policy_manager_policy'));
 
-echo field_input('policy_name', $policy_name, lang('content_filter_policy_name'));
+echo field_input('policy_name', $policy_name, lang('policy_manager_policy_name'));
 echo field_simple_dropdown('group', $groups, $group, lang('base_group'), $read_only);
 echo field_button_set($buttons);
 

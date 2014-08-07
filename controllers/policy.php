@@ -59,6 +59,7 @@ class Policy extends ClearOS_Controller
         //---------------
 
         $this->lang->load('content_filter');
+        $this->lang->load('policy_manager');
         $this->load->library('content_filter/DansGuardian');
 
         // Load view data
@@ -74,7 +75,7 @@ class Policy extends ClearOS_Controller
         // Load views
         //-----------
 
-        $this->page->view_form('content_filter/policy/list', $data, lang('content_filter_policies'));
+        $this->page->view_form('content_filter/policy/list', $data, lang('policy_manager_policies'));
     }
 
     /**
@@ -112,6 +113,7 @@ class Policy extends ClearOS_Controller
         //---------------
 
         $this->lang->load('content_filter');
+        $this->lang->load('policy_manager');
         $this->load->library('content_filter/DansGuardian');
 
         // Load the view data 
@@ -130,7 +132,7 @@ class Policy extends ClearOS_Controller
         // Load the views
         //---------------
 
-        $this->page->view_form('content_filter/policy/summary', $data, lang('content_filter_policy'));
+        $this->page->view_form('content_filter/policy/summary', $data, lang('policy_manager_policy'));
     }
 
     /**
@@ -226,6 +228,7 @@ class Policy extends ClearOS_Controller
         //---------------
 
         $this->lang->load('content_filter');
+        $this->lang->load('policy_manager');
         $this->load->library('content_filter/DansGuardian');
         $this->load->factory('groups/Group_Manager_Factory');
 
@@ -285,6 +288,6 @@ class Policy extends ClearOS_Controller
         // Load views
         //-----------
 
-        $this->page->view_form('content_filter/policy/item', $data, lang('content_filter_policy'));
+        $this->page->view_form('content_filter/policy/item', $data, lang('policy_manager_policy'));
     }
 }

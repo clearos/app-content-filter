@@ -47,6 +47,7 @@ require_once $bootstrap . '/bootstrap.php';
 ///////////////////////////////////////////////////////////////////////////////
 
 clearos_load_language('content_filter');
+clearos_load_language('policy_manager');
 
 ///////////////////////////////////////////////////////////////////////////////
 // D E P E N D E N C I E S
@@ -155,7 +156,7 @@ class DansGuardian extends Daemon
     ///////////////////////////////////////////////////////////////////////////
 
     /**
-     * Dansguardian constructor.
+     * DansGuardian constructor.
      */
 
     public function __construct()
@@ -187,7 +188,7 @@ class DansGuardian extends Daemon
             'exceptionmimetypelist'
         );
 
-        // Dansguardian does use locale codes...
+        // DansGuardian does use locale codes...
         // TODO: Keep these up-to-date with app-language
         $this->locales['czech'] = 'cs_CZ';
         $this->locales['danish'] = 'da_DK';
@@ -328,7 +329,7 @@ class DansGuardian extends Daemon
         Validation_Exception::is_valid($this->validate_group($group));
 
         if ($this->exists_policy_name($name))
-            throw new Engine_Exception(lang('content_filter_policy_already_exists'));
+            throw new Engine_Exception(lang('policy_manager_policy_already_exists'));
 
         $folder = new Folder(self::BASE_PATH);
         $files = $folder->get_listing();
@@ -467,8 +468,6 @@ class DansGuardian extends Daemon
 
     /**
      * Sets auto tuning parameters.
-     *
-     * @param array $tuning tuning parameters
      *
      * @return void
      * @throws Engine_Exception, Validation_Exception
@@ -1154,7 +1153,7 @@ class DansGuardian extends Daemon
             $cfg = $this->_get_configuration_by_filename(sprintf(self::FILE_CONFIG_FILTER_GROUP, $policy));
 
             if ($cfg == NULL)
-                throw new Validation_Exception('content_filter_policy_not_found');
+                throw new Validation_Exception('policy_manager_policy_not_found');
         }
 
         $policy = array();
@@ -1333,7 +1332,7 @@ class DansGuardian extends Daemon
 
         return array(
             '0' => lang('content_filter_ban_all'),
-            '1' => lang('content_filter_normal_filtering'),
+            '1' => lang('content_filter_normal'),
             '2' => lang('content_filter_no_filtering'),
         );
     }
@@ -2139,7 +2138,7 @@ class DansGuardian extends Daemon
         clearos_profile(__METHOD__, __LINE__);
 
         if (! clearos_is_valid_boolean($state))
-            return lang('content_filter_content_scan_invalid');
+            return lang('base_parameter_invalid');
     }
 
     /**
@@ -2155,7 +2154,7 @@ class DansGuardian extends Daemon
         clearos_profile(__METHOD__, __LINE__);
 
         if (! clearos_is_valid_boolean($state))
-            return lang('content_filter_deep_url_analysis_invalid');
+            return lang('base_parameter_invalid');
     }
 
     /**
@@ -2171,7 +2170,7 @@ class DansGuardian extends Daemon
         clearos_profile(__METHOD__, __LINE__);
 
         if (! clearos_is_valid_boolean($state))
-            return lang('content_filter_download_block_invalid');
+            return lang('base_parameter_invalid');
     }
 
     /**
@@ -2327,7 +2326,7 @@ class DansGuardian extends Daemon
         clearos_profile(__METHOD__, __LINE__);
 
         if (!is_numeric($id) || ($id < 0) || ($id > self::MAX_FILTER_GROUPS))
-            return lang('content_filter_policy_id_invalid');
+            return lang('policy_manager_policy_id_invalid');
     }
 
     /**
@@ -2343,7 +2342,7 @@ class DansGuardian extends Daemon
         clearos_profile(__METHOD__, __LINE__);
 
         if (!preg_match('/^[a-z0-9_\-]+$/', $name))
-            return lang('content_filter_policy_name_invalid');
+            return lang('policy_manager_policy_name_invalid');
     }
 
     /**
@@ -2375,7 +2374,7 @@ class DansGuardian extends Daemon
         clearos_profile(__METHOD__, __LINE__);
 
         if (! clearos_is_valid_boolean($state))
-            return lang('content_filter_reverse_address_lookups_invalid');
+            return lang('base_parameter_invalid');
     }
 
     /**

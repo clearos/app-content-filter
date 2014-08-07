@@ -27,7 +27,7 @@ $app['subcategory'] = lang('base_subcategory_content_filter_and_proxy');
 
 $app['controllers']['content_filter']['title'] = lang('content_filter_app_name');
 $app['controllers']['settings']['title'] = lang('base_settings');
-$app['controllers']['policy']['title'] = lang('content_filter_policy');
+$app['controllers']['policy']['title'] = lang('base_app_policy');
 
 /////////////////////////////////////////////////////////////////////////////
 // Packaging
@@ -48,6 +48,7 @@ $app['core_requires'] = array(
     'app-base-core',
     'app-events-core',
     'app-firewall-core',
+    'app-policy-manager-core',
     'app-groups-core >= 1:1.4.22',
     'app-network-core',
     'app-web-proxy-core',
