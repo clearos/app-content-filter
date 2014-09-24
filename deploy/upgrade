@@ -10,6 +10,15 @@ if [ -n "$CHECK" ]; then
     echo "clearos_any_user" > /etc/dansguardian-av/lists/filtergroupslist
 fi
 
+# Change cache directory
+#-----------------------
+
+CHECK=`grep "^filecachedir[[:space:]]*=[[:space:]]*'\/tmp" /etc/dansguardian-av/dansguardian.conf`
+if [ -n "$CHECK" ]; then
+    logger -p local6.notice -t installer "app-content-filter-core - updating cache directory"
+    sed -i -e "s/^filecachedir.*/filecachedir = '\/var\/cache\/dansguardian'/" /etc/dansguardian-av/dansguardian.conf
+fi
+
 # Run network configuration event
 #--------------------------------
 
