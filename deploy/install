@@ -32,7 +32,7 @@ cp /usr/clearos/apps/content_filter/deploy/exceptionsitelist /etc/dansguardian-a
 #----------------
 
 logger -p local6.notice -t installer "app-content-filter-core - disabling content filter server"
-/sbin/chkconfig dansguardian-av off
+/sbin/chkconfig dansguardian-av off >/dev/null 2>&1
 
 # Set tuning
 #-----------
