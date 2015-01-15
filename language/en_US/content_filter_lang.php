@@ -2,7 +2,7 @@
 
 $lang['content_filter_aggressive'] = 'Aggressive';
 $lang['content_filter_app_description'] = 'The Content Filter app allows an administrator to enforce Internet browsing policies.  Policies can be enforced across all users or user-specified groups.';
-$lang['content_filter_app_name'] = 'Content Filter';
+$lang['content_filter_app_name'] = 'Content Filter Engine';
 $lang['content_filter_ban_all'] = 'Ban All';
 $lang['content_filter_banned_ip'] = 'Banned IP';
 $lang['content_filter_banned_ips'] = 'Banned IPs';
