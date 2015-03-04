@@ -5,7 +5,7 @@
 /////////////////////////////////////////////////////////////////////////////
 
 $app['basename'] = 'content_filter';
-$app['version'] = '2.0.18';
+$app['version'] = '2.0.20';
 $app['release'] = '1';
 $app['vendor'] = 'ClearFoundation';
 $app['packager'] = 'ClearFoundation';
@@ -79,5 +79,6 @@ $app['core_file_manifest'] = array(
 
 $app['delete_dependency'] = array(
     'app-content-filter-core',
-    'dansguardian-av'
+    'dansguardian-av',
+    'dansguardian-phraselist'
 );
