@@ -80,5 +80,5 @@ $app['core_file_manifest'] = array(
 $app['delete_dependency'] = array(
     'app-content-filter-core',
     'dansguardian-av',
-    'dansguardian-phraselist'
+    'dansguardian-phraselists'
 );
