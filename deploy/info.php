@@ -5,7 +5,7 @@
 /////////////////////////////////////////////////////////////////////////////
 
 $app['basename'] = 'content_filter';
-$app['version'] = '2.0.20';
+$app['version'] = '2.0.21';
 $app['release'] = '1';
 $app['vendor'] = 'ClearFoundation';
 $app['packager'] = 'ClearFoundation';
@@ -34,7 +34,6 @@ $app['controllers']['policy']['title'] = lang('base_app_policy');
 /////////////////////////////////////////////////////////////////////////////
 
 $app['requires'] = array(
-    'app-antiphishing',
     'app-antivirus',
     'app-base >= 1:1.4.30',
     'app-network',
@@ -43,7 +42,6 @@ $app['requires'] = array(
 );
 
 $app['core_requires'] = array(
-    'app-antiphishing-core',
     'app-antivirus-core',
     'app-base-core',
     'app-events-core',

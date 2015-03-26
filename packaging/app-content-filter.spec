@@ -1,7 +1,7 @@
 
 Name: app-content-filter
 Epoch: 1
-Version: 2.0.20
+Version: 2.0.21
 Release: 1%{dist}
 Summary: Content Filter Engine
 License: GPLv3
@@ -10,7 +10,6 @@ Source: %{name}-%{version}.tar.gz
 Buildarch: noarch
 Requires: %{name}-core = 1:%{version}-%{release}
 Requires: app-base
-Requires: app-antiphishing
 Requires: app-antivirus
 Requires: app-base >= 1:1.4.30
 Requires: app-network
@@ -25,7 +24,6 @@ Summary: Content Filter Engine - Core
 License: LGPLv3
 Group: ClearOS/Libraries
 Requires: app-base-core
-Requires: app-antiphishing-core
 Requires: app-antivirus-core
 Requires: app-base-core
 Requires: app-events-core
