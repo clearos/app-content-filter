@@ -4,7 +4,7 @@
 
 $lang['content_filter_aggressive'] = 'Агрессивный';
 $lang['content_filter_app_description'] = 'Приложение "Фильтр контента" позволяет администратору осуществлять интернет-политику просмотра. Политика может быть обеспечена для всех пользователей или заданных групп пользователей.';
-$lang['content_filter_app_name'] = 'Фильтр контента';
+$lang['content_filter_app_name'] = 'Content Filter Engine';
 $lang['content_filter_ban_all'] = 'Запретить все';
 $lang['content_filter_banned_ip'] = 'Заблокированные IP';
 $lang['content_filter_banned_ips'] = 'Заблокированные IPs';

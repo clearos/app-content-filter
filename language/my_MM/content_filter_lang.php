@@ -4,7 +4,7 @@
 
 $lang['content_filter_aggressive'] = 'Aggressive';
 $lang['content_filter_app_description'] = 'The Content Filter app allows an administrator to enforce Internet browsing policies.  Policies can be enforced across all users or user-specified groups.';
-$lang['content_filter_app_name'] = 'Content Filter';
+$lang['content_filter_app_name'] = 'Content Filter Engine';
 $lang['content_filter_ban_all'] = 'Ban All';
 $lang['content_filter_banned_ip'] = 'Banned IP';
 $lang['content_filter_banned_ips'] = 'Banned IPs';
@@ -83,7 +83,7 @@ $lang['content_filter_blacklists_available_in_marketplace'] = 'Blacklists with r
 $lang['content_filter_blanket_block'] = 'Blanket Block';
 $lang['content_filter_block_downloads'] = 'Block Downloads';
 $lang['content_filter_block_ip_domains'] = 'Block IP Domains';
-$lang['content_filter_content_filter'] = 'Content Filter';
+$lang['content_filter_content_filter'] = 'Content Filter Engine';
 $lang['content_filter_content_has_been_blocked'] = 'Content has been blocked.';
 $lang['content_filter_custom_report'] = 'Custom Report';
 $lang['content_filter_deep_url_analysis'] = 'Deep URL Analysis';
