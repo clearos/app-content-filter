@@ -83,6 +83,7 @@ class Phrase_Lists extends ClearOS_Controller
                     array_keys($this->input->post('phrase_lists')),
                     $policy
                 );
+                $this->dansguardian->reset(TRUE);
 
                 $this->page->set_status_updated();
                 redirect('/content_filter/policy/configure/' . $policy);

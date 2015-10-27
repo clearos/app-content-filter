@@ -87,6 +87,7 @@ class MIME_Types extends ClearOS_Controller
 
             try {
                 $this->dansguardian->set_banned_mime_types($mime_types, $policy);
+                $this->dansguardian->reset(TRUE);
 
                 $this->page->set_status_updated();
                 redirect('/content_filter/policy/configure/' . $policy);

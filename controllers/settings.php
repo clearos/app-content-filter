@@ -110,6 +110,7 @@ class Settings extends ClearOS_Controller
             try {
                 $this->dansguardian->set_reverse_lookups($this->input->post('reverse'));
                 $this->dansguardian->auto_tune();
+                $this->dansguardian->reset(TRUE);
 
                 $this->page->set_status_updated();
 

@@ -191,6 +191,7 @@ class Policy extends ClearOS_Controller
 
         try {
             $this->dansguardian->delete_policy($policy);
+            $this->dansguardian->reset(TRUE);
 
             $this->page->set_status_deleted();
             redirect('/content_filter');
@@ -250,6 +251,7 @@ class Policy extends ClearOS_Controller
                         $this->input->post('policy_name'),
                         $this->input->post('group')
                     );
+                    $this->dansguardian->reset(TRUE);
                     $this->page->set_status_updated();
                 } else {
                     $this->dansguardian->add_policy(

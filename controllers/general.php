@@ -95,6 +95,7 @@ class General extends ClearOS_Controller
                 $this->dansguardian->set_download_block($this->input->post('block_downloads'), $policy);
                 $this->dansguardian->set_blanket_block($this->input->post('blanket_block'), $policy);
                 $this->dansguardian->set_block_ip_domains($this->input->post('block_ip_domains'), $policy);
+                $this->dansguardian->reset(TRUE);
 
                 $this->page->set_status_updated();
                 redirect('/content_filter/policy/configure/' . $policy);
