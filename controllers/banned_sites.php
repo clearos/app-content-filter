@@ -88,6 +88,7 @@ class Banned_Sites extends ClearOS_Controller
         if ($this->input->post('submit') && $form_ok) {
             try {
                 $this->dansguardian->add_banned_site_and_url($this->input->post('site'), $policy);
+                $this->dansguardian->reset(TRUE);
 
                 $this->page->set_status_updated();
                 redirect('/content_filter/banned_sites/edit/' . $policy);
@@ -182,6 +183,7 @@ class Banned_Sites extends ClearOS_Controller
 
         try {
             $this->dansguardian->delete_banned_site_and_url(base64_decode(strtr($site, '-_.', '+/=')), $policy);
+            $this->dansguardian->reset(TRUE);
 
             $this->page->set_status_deleted();
             redirect('/content_filter/banned_sites/edit/' . $policy);

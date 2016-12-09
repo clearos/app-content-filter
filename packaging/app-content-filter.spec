@@ -53,7 +53,6 @@ install -d -m 0755 %{buildroot}/var/clearos/content_filter/backup/
 install -D -m 0644 packaging/content_filter.acl %{buildroot}/var/clearos/base/access_control/public/content_filter
 install -D -m 0644 packaging/content_filter.conf %{buildroot}/etc/clearos/content_filter.conf
 install -D -m 0644 packaging/dansguardian-av.php %{buildroot}/var/clearos/base/daemon/dansguardian-av.php
-install -D -m 0644 packaging/filewatch-content-filter-configuration.conf %{buildroot}/etc/clearsync.d/filewatch-content-filter-configuration.conf
 install -D -m 0755 packaging/network-configuration-event %{buildroot}/var/clearos/events/network_configuration/content_filter
 
 %post
@@ -101,5 +100,4 @@ exit 0
 /var/clearos/base/access_control/public/content_filter
 %config(noreplace) /etc/clearos/content_filter.conf
 /var/clearos/base/daemon/dansguardian-av.php
-/etc/clearsync.d/filewatch-content-filter-configuration.conf
 /var/clearos/events/network_configuration/content_filter
