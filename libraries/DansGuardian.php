@@ -1276,12 +1276,13 @@ class DansGuardian extends Daemon
 
             if ($folder->is_directory()) {
                 $blacklistsinfo['name'] = $foldername;
-                $descriptiontag = 'DANSGUARDIAN_LANG_BLACKLIST_' . strtoupper(preg_replace("/[\-_]/", '', $foldername));
+                $translationtag = 'content_filter_category_' . strtolower(preg_replace("/[\-]/", '_', $foldername));
+                $descriptiontag = lang($translationtag);
 
-                if (defined("$descriptiontag"))
-                    $blacklistsinfo['description'] = constant($descriptiontag);
-                else
+                if (preg_match('/\*\*/', $descriptiontag))
                     $blacklistsinfo['description'] = '...';
+                else
+                    $blacklistsinfo['description'] = $descriptiontag;
 
                 $blacklistslist[] = $blacklistsinfo;
             }
