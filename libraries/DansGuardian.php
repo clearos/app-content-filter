@@ -500,12 +500,36 @@ class DansGuardian extends Daemon
     {
         clearos_profile(__METHOD__, __LINE__);
 
-        $groups = $this->GetFilterGroups();
-        $blacklists = $this->GetPossibleBlacklists();
+        // Generic mapping engine for other list providers.  This one is for eGloo/Netify.
+        $mapping = array(
+            'porn' => 'adult',
+            'ads' => 'advertiser',
+            'audio-video' => 'arts-and-entertainment',
+            'entertainment' => 'arts-and-entertainment',
+            'jobsearch' => 'career-and-education',
+            'personalfinance' => 'financial',
+            'onlinegames' => 'games',
+            'medical' => 'health',
+            'webmail' => 'mail',
+            'phishing' => 'malware',
+            'virusinfected' => 'malware',
+            'chat' => 'messaging-and-forums',
+            'instantmessaging' => 'messaging-and-forums',
+            'searchengines' => 'portal',
+            'vacation' => 'recreation',
+            'ecommerce' => 'shopping',
+            'socialnetworking' => 'social-media',
+            'religion' => 'society',
+            'proxy' => 'vpn-and-proxy',
+        );
+
+        // Compare lists
+        $groups = $this->get_policies();
+        $blacklists = $this->get_possible_blacklists();
         $baddetails = array();
 
         foreach ($groups as $groupid => $info) {
-            $configured = $this->GetBlacklists($groupid);
+            $configured = $this->get_blacklists($groupid);
 
             $available = array();
 
@@ -518,6 +542,8 @@ class DansGuardian extends Daemon
             foreach ($configured as $list) {
                 if (in_array($list, $available)) {
                     $cleanlist[] = $list;
+                } else if (array_key_exists($list, $mapping)) {
+                    $cleanlist[] = $mapping[$list];
                 } else {
                     $badlist[] = $list;
                     $baddetails[] = "Group $groupid: $list";
@@ -527,8 +553,10 @@ class DansGuardian extends Daemon
             $badlist = array_unique($badlist);
             $cleanlist = array_unique($cleanlist);
 
-            if (count($badlist) > 0)
-                $this->SetBlacklists($cleanlist, $groupid);
+            if (count($badlist) > 0) {
+                $this->set_blacklists($cleanlist, $groupid);
+                $this->reset();
+            }
         }
 
         return $baddetails;

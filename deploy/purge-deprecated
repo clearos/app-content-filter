@@ -1,0 +1,69 @@
+#!/bin/sh
+
+DEPRECATED="\
+ads \
+aggressive \
+antispyware \
+artnudes \
+audio-video \
+banking \
+beerliquorinfo \
+beerliquorsale \
+cellphones \
+chat \
+childcare \
+cleaning \
+clothing \
+culinary \
+dialers \
+ecommerce \
+entertainment \
+gardening \
+hacking \
+homerepair \
+hygiene \
+instantmessaging \
+jewelry \
+jobsearch \
+kidstimewasting \
+medical \
+mobile-phone \
+naturism \
+onlineauctions \
+onlinegames \
+onlinepayment \
+personalfinance \
+pets \
+phishing \
+porn \
+proxy \
+radio \
+religion \
+ringtones \
+searchengines \
+sexual_education \
+sexuality \
+socialnetworking \
+sportnews \
+spyware \
+updatesites \
+vacation \
+violence \
+virusinfected \
+warez \
+weapons \
+weather \
+webmail \
+whitelist \
+"
+
+for DEPRECATE in $DEPRECATED; do
+    if [ -d "/var/clearos/content_filter_updates/blacklists/$DEPRECATE" ]; then
+        rm -rf /var/clearos/content_filter_updates/blacklists/$DEPRECATE
+    fi
+done
+
+if [ -e /var/clearos/content_filter_updates/blacklists/CATEGORIES ]; then
+    rm -f /var/clearos/content_filter_updates/blacklists/CATEGORIES
+fi
+
