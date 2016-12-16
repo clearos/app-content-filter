@@ -50,7 +50,6 @@ $app['core_requires'] = array(
     'app-groups-core >= 1:1.4.22',
     'app-network-core',
     'app-web-proxy-core',
-    'csplugin-filewatch',
     'dansguardian-av >= 2.10.1.1-5',
 );
 

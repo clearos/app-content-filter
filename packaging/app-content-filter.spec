@@ -32,7 +32,6 @@ Requires: app-policy-manager-core
 Requires: app-groups-core >= 1:1.4.22
 Requires: app-network-core
 Requires: app-web-proxy-core
-Requires: csplugin-filewatch
 Requires: dansguardian-av >= 2.10.1.1-5
 
 %description core
